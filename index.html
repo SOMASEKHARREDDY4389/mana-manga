@@ -1,0 +1,1358 @@
+```html
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mana Manga - Telugu Manga</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    background:#08090d;
+    color:#fff;
+    font-family:Arial,"Noto Sans Telugu",sans-serif;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    height:70px;
+    background:rgba(8,9,13,.96);
+    border-bottom:1px solid #282a34;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+    color:#ff3e73;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:#ddd;
+    text-decoration:none;
+}
+
+nav a:hover{
+    color:#ff3e73;
+}
+
+.hero{
+    min-height:600px;
+    display:flex;
+    align-items:center;
+    padding:80px 8%;
+    background:
+    linear-gradient(90deg,#08090d 10%,rgba(8,9,13,.8),rgba(8,9,13,.2)),
+    url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1800&q=80");
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    max-width:650px;
+}
+
+.badge{
+    color:#ff3e73;
+    letter-spacing:4px;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.hero h1{
+    font-size:clamp(42px,7vw,78px);
+    line-height:1.05;
+    margin:18px 0;
+}
+
+.hero p{
+    color:#c8c9cf;
+    line-height:1.9;
+    font-size:18px;
+}
+
+.btn{
+    border:0;
+    background:#ff3e73;
+    color:#fff;
+    padding:14px 24px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    margin-top:25px;
+}
+
+.btn:hover{
+    background:#ff1758;
+}
+
+section{
+    width:90%;
+    max-width:1300px;
+    margin:80px auto;
+}
+
+.section-title{
+    font-size:34px;
+    margin-bottom:25px;
+}
+
+.search{
+    width:100%;
+    padding:16px 20px;
+    border-radius:8px;
+    border:1px solid #30333e;
+    background:#151720;
+    color:white;
+    outline:none;
+    font-size:16px;
+    margin-bottom:30px;
+}
+
+.search:focus{
+    border-color:#ff3e73;
+}
+
+.filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-bottom:30px;
+}
+
+.filter{
+    background:#171922;
+    border:1px solid #30333e;
+    color:#bbb;
+    padding:8px 15px;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.filter.active,
+.filter:hover{
+    background:#ff3e73;
+    color:#fff;
+    border-color:#ff3e73;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+    gap:22px;
+}
+
+.card{
+    background:#13151c;
+    border:1px solid #292c36;
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-7px);
+    border-color:#ff3e73;
+    box-shadow:0 15px 40px rgba(255,62,115,.12);
+}
+
+.card img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    display:block;
+}
+
+.card-info{
+    padding:15px;
+}
+
+.card h3{
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#777b86;
+    font-size:13px;
+}
+
+.tag{
+    display:inline-block;
+    background:#292c36;
+    color:#ff6d94;
+    padding:5px 8px;
+    border-radius:5px;
+    font-size:11px;
+    margin-top:12px;
+}
+
+/* Reader */
+
+.reader{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#050507;
+    z-index:1000;
+    overflow-y:auto;
+}
+
+.reader-header{
+    position:sticky;
+    top:0;
+    height:65px;
+    background:rgba(10,11,16,.98);
+    border-bottom:1px solid #292c36;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    z-index:20;
+}
+
+.close{
+    width:42px;
+    height:42px;
+    border:0;
+    background:#282b35;
+    color:#fff;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.reader-title{
+    font-weight:bold;
+}
+
+.chapter-bar{
+    position:sticky;
+    top:65px;
+    z-index:15;
+    background:#0e1016;
+    padding:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    border-bottom:1px solid #292c36;
+}
+
+.chapter-bar button{
+    background:#292c36;
+    border:0;
+    color:#fff;
+    padding:9px 14px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.chapter-bar select{
+    background:#191b23;
+    color:#fff;
+    border:1px solid #333640;
+    padding:9px;
+    border-radius:6px;
+    min-width:220px;
+}
+
+.reader-content{
+    width:100%;
+    max-width:850px;
+    margin:auto;
+    padding-bottom:170px;
+}
+
+.chapter-heading{
+    text-align:center;
+    padding:45px 20px 25px;
+}
+
+.chapter-heading h2{
+    font-size:32px;
+}
+
+.chapter-heading p{
+    color:#777;
+    margin-top:10px;
+}
+
+.scene{
+    margin-bottom:35px;
+}
+
+.scene img{
+    width:100%;
+    display:block;
+    min-height:350px;
+    object-fit:cover;
+    background:#171922;
+}
+
+.scene-text{
+    background:#11131a;
+    padding:25px;
+}
+
+.scene-text p{
+    color:#d6d6da;
+    font-size:19px;
+    line-height:2;
+}
+
+.dialogue{
+    border-left:4px solid #ff3e73;
+    background:#1b1d26;
+    margin-top:20px;
+    padding:15px 18px;
+    font-size:20px;
+    line-height:1.8;
+}
+
+.listen{
+    background:#ff3e73;
+    border:0;
+    color:#fff;
+    padding:9px 15px;
+    border-radius:6px;
+    cursor:pointer;
+    margin-top:18px;
+}
+
+.audio{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:rgba(5,5,7,.98);
+    border-top:1px solid #30333e;
+    padding:12px;
+    text-align:center;
+    z-index:30;
+}
+
+.subtitle{
+    max-width:800px;
+    margin:auto;
+    margin-bottom:9px;
+    color:#fff;
+}
+
+.audio button{
+    border:0;
+    background:#ff3e73;
+    color:#fff;
+    padding:8px 13px;
+    border-radius:6px;
+    margin:3px;
+    cursor:pointer;
+}
+
+footer{
+    background:#11131a;
+    color:#777;
+    text-align:center;
+    padding:60px 20px;
+}
+
+footer strong{
+    color:#ff3e73;
+    font-size:22px;
+}
+
+/* Mobile */
+
+@media(max-width:700px){
+
+    nav{
+        display:none;
+    }
+
+    .hero{
+        min-height:600px;
+        padding:70px 6%;
+    }
+
+    .hero h1{
+        font-size:44px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    section{
+        width:92%;
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+    }
+
+    .card img{
+        height:230px;
+    }
+
+    .card-info{
+        padding:11px;
+    }
+
+    .card h3{
+        font-size:15px;
+    }
+
+    .scene-text{
+        padding:18px;
+    }
+
+    .scene-text p{
+        font-size:16px;
+    }
+
+    .dialogue{
+        font-size:17px;
+    }
+
+    .chapter-bar select{
+        min-width:150px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">📖 Mana Manga</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#library">Manga</a>
+        <a href="#latest">Latest</a>
+    </nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<div class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            TELUGU MANGA WORLD
+        </div>
+
+        <h1>
+            తెలుగు Manga
+            ప్రపంచంలోకి రండి
+        </h1>
+
+        <p>
+            Original stories, manga scenes,
+            Telugu narration మరియు audioతో
+            మీకు నచ్చిన కథలను చదవండి.
+        </p>
+
+        <button
+            class="btn"
+            onclick="document.getElementById('library').scrollIntoView()"
+        >
+            📚 Manga చూడండి
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- LIBRARY -->
+
+<section id="library">
+
+    <h2 class="section-title">
+        📚 Manga Library
+    </h2>
+
+    <input
+        id="search"
+        class="search"
+        placeholder="🔍 Manga పేరు వెతకండి..."
+        oninput="render()"
+    >
+
+    <div id="filters" class="filters"></div>
+
+    <div id="grid" class="grid"></div>
+
+</section>
+
+
+<!-- LATEST -->
+
+<section id="latest">
+
+    <h2 class="section-title">
+        🔥 Latest
+    </h2>
+
+    <div id="latestList"></div>
+
+</section>
+
+
+<footer>
+
+    <strong>📖 Mana Manga</strong>
+
+    <p style="margin-top:12px">
+        Telugu Manga • Telugu Stories • Telugu Audio
+    </p>
+
+    <p style="margin-top:15px">
+        © 2026 Mana Manga
+    </p>
+
+</footer>
+
+
+<!-- READER -->
+
+<div id="reader" class="reader">
+
+    <div class="reader-header">
+
+        <button
+            class="close"
+            onclick="closeReader()"
+        >
+            ✕
+        </button>
+
+        <div
+            id="readerTitle"
+            class="reader-title"
+        >
+            Manga
+        </div>
+
+        <div></div>
+
+    </div>
+
+
+    <div class="chapter-bar">
+
+        <button onclick="previousChapter()">
+            ←
+        </button>
+
+        <select
+            id="chapterSelect"
+            onchange="selectChapter(this.value)"
+        ></select>
+
+        <button onclick="nextChapter()">
+            →
+        </button>
+
+    </div>
+
+
+    <main
+        id="readerContent"
+        class="reader-content"
+    ></main>
+
+
+    <div class="audio">
+
+        <div
+            id="subtitle"
+            class="subtitle"
+        >
+            తెలుగు Audio
+        </div>
+
+        <button onclick="playAudio()">
+            🔊 Play
+        </button>
+
+        <button onclick="speechSynthesis.pause()">
+            ⏸ Pause
+        </button>
+
+        <button onclick="speechSynthesis.resume()">
+            ▶ Resume
+        </button>
+
+        <button onclick="stopAudio()">
+            ⏹ Stop
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   MANGA DATA
+========================================== */
+
+const manga = [
+
+{
+    id:1,
+    title:"నక్షత్ర కిరీటం",
+    genre:["Sci-Fi","Fantasy","Mystery"],
+
+    cover:
+    "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=700&q=80",
+
+    description:
+    "ఏడు రాజ్యాలు, ఒక రహస్యమైన కిరీటం మరియు మానవాళి దాచిన నిజం.",
+
+    chapters:[
+
+    {
+        title:"నల్లటి కిరీటం",
+
+        scenes:[
+
+        {
+            image:
+            "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1200&q=80",
+
+            text:
+            "క్రీ.శ. 4179. మానవులు నక్షత్రాలను చూడటం మర్చిపోయారు. నక్షత్రాలు మాయమైపోయినందుకు కాదు. వాటి మధ్యలో ఏదో ఒకటి కనిపించడం మొదలైనందుకు. పదిహేడేళ్ల లైరా వేల్ ఏథెరిస్ రాజ్యంలోని పురాతన గ్రంథాలయంలో శిష్యురాలిగా పనిచేసేది.",
+
+            dialogue:
+            "రాజు ఇప్పటికే చనిపోయాడు."
+        },
+
+        {
+            image:
+            "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80",
+
+            text:
+            "ఒక రాత్రి పాడుబడిన చంద్రుడి నుంచి తెచ్చిన వస్తువులను నమోదు చేస్తుండగా లైరాకు ఒక చిన్న నల్లటి కిరీటం కనిపించింది. దాని చుట్టూ ఏడు చిన్న నక్షత్రాలు చెక్కబడి ఉన్నాయి. ఆమె కిరీటాన్ని తాకగానే గ్రంథాలయంలోని అన్ని దీపాలు ఒక్కసారిగా ఆరిపోయాయి.",
+
+            dialogue:
+            "ఇది అసాధ్యం..."
+        },
+
+        {
+            image:
+            "https://images.unsplash.com/photo-1447433819943-74a20887a81e?auto=format&fit=crop&w=1200&q=80",
+
+            text:
+            "మరుసటి ఉదయం రాజు ఒరియన్ మరణించాడు. రాజ వైద్యులు ఆరు గంటల పాటు పరీక్షించినా కారణాన్ని కనుగొనలేకపోయారు. లైరా వెంటనే గ్రంథాలయానికి పరుగెత్తింది. కానీ కిరీటం అక్కడ లేదు. ఆమె బల్లపై ఒక చిన్న కాగితం మాత్రమే ఉంది.",
+
+            dialogue:
+            "చంద్రుడి పైన చూడు."
+        }
+
+        ]
+    },
+
+
+    {
+        title:"భూమికి ద్వారం",
+
+        scenes:[
+
+        {
+            image:
+            "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1200&q=80",
+
+            text:
+            "కిటికీ దగ్గరకు వెళ్లిన లైరా చంద్రుడి వైపు చూసింది. వెండి నాణెంలా కనిపిస్తున్న చంద్రుడి మీదుగా ఒక నల్లటి అంతరిక్ష నౌక కదులుతోంది. అది ఏ రాజ్యానికి చెందిన నౌక కాదు.",
+
+            dialogue:
+            "నా పేరు కేల్. రాజు ఎందుకు చనిపోయాడో తెలుసుకోవాలంటే నాతో రా."
+        },
+
+        {
+            image:
+            "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+
+            text:
+            "వారు రాజభవనం కింద ఉన్న పురాతన సొరంగంలోకి ప్రవేశించారు. గోడలపై డ్రాగన్లు, నక్షత్రాలు మరియు ఆకాశంలో తేలుతున్న భారీ నౌకల చిత్రాలు ఉన్నాయి. చివరకు ఒక వృత్తాకార వేదిక వద్దకు చేరుకున్నారు.",
+
+            dialogue:
+            "ఇది ఒక ద్వారం."
+        },
+
+        {
+            image:
+            "https://images.unsplash.com/photo-1462332420958-a05d1e002413?auto=format&fit=crop&w=1200&q=80",
+
+            text:
+            "వేదికపై నీలి కాంతి వ్యాపించింది. గాలిలో ఒక తలుపు తెరుచుకుంది. దాని అవతల నక్షత్రాలతో నిండిన అంతరిక్షం కనిపించింది. కేల్ లైరా వైపు చూసి ఒకే మాట అన్నాడు.",
+
+            dialogue:
+            "భూమికి స్వాగతం."
+        }
+
+        ]
+    },
+
+
+    {
+        title:"స్టార్‌ఫాల్",
+
+        scenes:[
+
+        {
+            image:
+            "https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?auto=format&fit=crop&w=1200&q=80",
+
+            text:
+            "భూమిపై లైరా ఒక అద్భుతమైన నగరాన్ని చూసింది. గాజు గోపురాలు ఆకాశాన్ని తాకుతున్నాయి. రోబోలు మనుషులతో కలిసి నడుస్తున్నాయి. ఆకాశంలో వందలాది నౌకలు ప్రయాణిస్తున్నాయి.",
+
+            dialogue:
+            "భూమి నాశనం కాలేదు."
+        },
+
+        {
+            image:
+            "https://images.unsplash.com/photo-1484589065579-248aad0b628b?auto=format&fit=crop&w=1200&q=80",
+
+            text:
+            "నగరంలోని ప్రతి తెర ఒక్కసారిగా మారిపోయింది. తెరపై లైరాలాగే కనిపించే ఒక యువతి ప్రత్యక్షమైంది. ఆమె తనను అసలు లైరా వేల్ అని పరిచయం చేసుకుంది.",
+
+            dialogue:
+            "నువ్వు ఇది చూస్తున్నావంటే... నేను చనిపోయాను."
+        },
+
+        {
+            image:
+            "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=1200&q=80",
+
+            text:
+            "లైరా తన గతాన్ని గుర్తు చేసుకోవడం ప్రారంభించింది. ప్రయోగశాలలు, శాస్త్రవేత్తలు, నాశనం అవుతున్న భూమి, స్టార్‌ఫాల్ ఇంజిన్ మరియు ఏడు కృత్రిమ ప్రపంచాలు ఆమె కళ్ల ముందు మెరిపించాయి.",
+
+            dialogue:
+            "నువ్వు అసలు లైరా కాదు."
+        }
+
+        ]
+    }
+
+    ]
+}
+
+];
+
+
+/* ==========================================
+   CREATE 50 STORY LIBRARY
+========================================== */
+
+const extraStories = [
+
+"చివరి డ్రాగన్",
+"కాలాన్ని దాటిన బాలుడు",
+"చంద్రుని రాజకుమారి",
+"నీడల నగరం",
+"అంతరిక్ష యోధుడు",
+"మాయా ఖడ్గం",
+"మరచిపోయిన రాజ్యం",
+"రోబోట్ హృదయం",
+"ఏడు ద్వారాలు",
+"నల్లటి చంద్రుడు",
+"సముద్రం అడుగున నగరం",
+"చివరి మాంత్రికుడు",
+"భవిష్యత్తు నుండి వచ్చిన అమ్మాయి",
+"ఆత్మల రైలు",
+"మంచు రాజ్యం",
+"కాలపు గడియారం",
+"నక్షత్ర వేటగాడు",
+"రహస్య ద్వీపం",
+"అగ్ని రాజు",
+"కనిపించని నగరం",
+"చంద్రగ్రహణం",
+"ఆకాశ సైన్యం",
+"మాయా అడవి",
+"చివరి అంతరిక్ష నౌక",
+"నీలి కత్తి",
+"భూమి చివరి రోజు",
+"రాక్షసుల రాజ్యం",
+"జ్ఞాపకాలను దొంగిలించే నగరం",
+"నక్షత్రాల మధ్య యుద్ధం",
+"అమర యువరాణి",
+"రహస్య ప్రయోగశాల",
+"చీకటి దేవుడు",
+"భవిష్యత్తు యోధులు",
+"మరణించిన రాజు రహస్యం",
+"ఏడు మాంత్రికులు",
+"సమయపు తలుపు",
+"ఆకాశ సముద్రం",
+"మెకా యోధుడు",
+"చివరి డ్రాగన్ రక్తం",
+"నక్షత్రాల పిల్లలు",
+"శపించబడిన కోట",
+"అజ్ఞాత గ్రహం",
+"నీడల యోధుడు",
+"మాయా కిరీటం",
+"అంతరిక్ష సముద్రపు దొంగలు",
+"భూమి కింద రాజ్యం",
+"రేపటి ప్రపంచం",
+"దేవతల యుద్ధం",
+"విశ్వం చివరన"
+];
+
+
+extraStories.forEach((title,index)=>{
+
+    manga.push({
+
+        id:index+2,
+
+        title:title,
+
+        genre:
+        index%3===0
+        ?["Fantasy","Adventure"]
+        :index%3===1
+        ?["Sci-Fi","Mystery"]
+        :["Action","Fantasy"],
+
+        cover:
+        `https://images.unsplash.com/photo-${
+        [
+        "1511497584788-876760111969",
+        "1534791547706-8eab693a5bdb",
+        "1446776811953-b23d57bd21aa",
+        "1462331940025-496dfbfc7564"
+        ][index%4]
+        }?auto=format&fit=crop&w=700&q=80`,
+
+        description:
+        "తెలుగులో ఒక కొత్త original manga కథ. అధ్యాయాలు మరియు scenes త్వరలో మరిన్ని జోడించవచ్చు.",
+
+        chapters:[]
+
+    });
+
+});
+
+
+/* ==========================================
+   STATE
+========================================== */
+
+let currentStory=null;
+let currentChapter=0;
+let currentScene=0;
+let selectedGenre="All";
+
+
+/* ==========================================
+   RENDER FILTERS
+========================================== */
+
+function renderFilters(){
+
+    const box=document.getElementById("filters");
+
+    const genres=new Set();
+
+    manga.forEach(m=>{
+        m.genre.forEach(g=>genres.add(g));
+    });
+
+    box.innerHTML="";
+
+    addFilter("All");
+
+    genres.forEach(g=>addFilter(g));
+
+}
+
+
+function addFilter(name){
+
+    const btn=document.createElement("button");
+
+    btn.className=
+        "filter "+
+        (selectedGenre===name?"active":"");
+
+    btn.textContent=name;
+
+    btn.onclick=()=>{
+
+        selectedGenre=name;
+
+        renderFilters();
+        render();
+
+    };
+
+    document
+    .getElementById("filters")
+    .appendChild(btn);
+
+}
+
+
+/* ==========================================
+   RENDER STORIES
+========================================== */
+
+function render(){
+
+    const query=
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+    const grid=
+        document.getElementById("grid");
+
+    grid.innerHTML="";
+
+    manga
+    .filter(m=>
+        m.title.toLowerCase().includes(query)
+        &&
+        (
+            selectedGenre==="All"
+            ||
+            m.genre.includes(selectedGenre)
+        )
+    )
+    .forEach(m=>{
+
+        const card=document.createElement("article");
+
+        card.className="card";
+
+        card.onclick=()=>openReader(m.id);
+
+        card.innerHTML=`
+
+            <img
+                src="${m.cover}"
+                alt="${m.title}"
+                onerror="this.src='https://placehold.co/700x900/171922/ffffff?text=Mana+Manga'"
+            >
+
+            <div class="card-info">
+
+                <h3>${m.title}</h3>
+
+                <p>${m.genre.join(" • ")}</p>
+
+                <span class="tag">తెలుగు</span>
+
+            </div>
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* ==========================================
+   LATEST
+========================================== */
+
+function renderLatest(){
+
+    const box=
+        document.getElementById("latestList");
+
+    box.innerHTML="";
+
+    manga
+    .filter(m=>m.chapters.length)
+    .slice(0,8)
+    .forEach(m=>{
+
+        const div=document.createElement("div");
+
+        div.style.cssText=`
+            background:#13151c;
+            border:1px solid #292c36;
+            border-radius:8px;
+            padding:18px;
+            margin-bottom:10px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:10px;
+        `;
+
+        div.innerHTML=`
+
+            <div>
+                <strong>${m.title}</strong>
+
+                <div style="color:#777;margin-top:5px">
+                    ${m.chapters.length} chapters
+                </div>
+            </div>
+
+            <button
+                class="btn"
+                style="margin:0"
+                onclick="openReader(${m.id})"
+            >
+                చదవండి
+            </button>
+        `;
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* ==========================================
+   OPEN READER
+========================================== */
+
+function openReader(id){
+
+    currentStory=
+        manga.find(m=>m.id===id);
+
+    if(!currentStory)return;
+
+    if(!currentStory.chapters.length){
+
+        alert(
+            "ఈ Mangaకి chapters ఇంకా జోడించలేదు. మీరు stories arrayలో chapters జోడించవచ్చు."
+        );
+
+        return;
+    }
+
+    currentChapter=0;
+    currentScene=0;
+
+    document
+    .getElementById("reader")
+    .style.display="block";
+
+    document.body.style.overflow="hidden";
+
+    document
+    .getElementById("readerTitle")
+    .textContent=currentStory.title;
+
+    buildChapters();
+
+    showChapter();
+
+}
+
+
+/* ==========================================
+   CLOSE
+========================================== */
+
+function closeReader(){
+
+    stopAudio();
+
+    document
+    .getElementById("reader")
+    .style.display="none";
+
+    document.body.style.overflow="auto";
+
+}
+
+
+/* ==========================================
+   CHAPTERS
+========================================== */
+
+function buildChapters(){
+
+    const select=
+        document.getElementById("chapterSelect");
+
+    select.innerHTML="";
+
+    currentStory.chapters.forEach((c,i)=>{
+
+        const option=
+            document.createElement("option");
+
+        option.value=i;
+
+        option.textContent=
+            `Chapter ${i+1} — ${c.title}`;
+
+        select.appendChild(option);
+
+    });
+
+    select.value=currentChapter;
+
+}
+
+
+function selectChapter(value){
+
+    currentChapter=Number(value);
+
+    currentScene=0;
+
+    stopAudio();
+
+    showChapter();
+
+}
+
+
+function nextChapter(){
+
+    if(
+        currentChapter <
+        currentStory.chapters.length-1
+    ){
+
+        currentChapter++;
+
+        currentScene=0;
+
+        document
+        .getElementById("chapterSelect")
+        .value=currentChapter;
+
+        showChapter();
+
+    }
+
+}
+
+
+function previousChapter(){
+
+    if(currentChapter>0){
+
+        currentChapter--;
+
+        currentScene=0;
+
+        document
+        .getElementById("chapterSelect")
+        .value=currentChapter;
+
+        showChapter();
+
+    }
+
+}
+
+
+/* ==========================================
+   SHOW CHAPTER
+========================================== */
+
+function showChapter(){
+
+    const chapter=
+        currentStory.chapters[currentChapter];
+
+    const content=
+        document.getElementById("readerContent");
+
+    content.innerHTML=`
+
+        <div class="chapter-heading">
+
+            <h2>
+                ${chapter.title}
+            </h2>
+
+            <p>
+                ${currentStory.title}
+            </p>
+
+        </div>
+
+    `;
+
+    chapter.scenes.forEach((scene,index)=>{
+
+        const article=
+            document.createElement("article");
+
+        article.className="scene";
+
+        article.innerHTML=`
+
+            <img
+                src="${scene.image}"
+                alt="Manga Scene"
+                onerror="
+                    this.src='https://placehold.co/850x1100/171922/ffffff?text=Manga+Scene'
+                "
+            >
+
+            <div class="scene-text">
+
+                <p>
+                    ${scene.text}
+                </p>
+
+                <div class="dialogue">
+                    "${scene.dialogue}"
+                </div>
+
+                <button
+                    class="listen"
+                    onclick="playScene(${index})"
+                >
+                    🔊 ఈ Scene వినండి
+                </button>
+
+            </div>
+        `;
+
+        content.appendChild(article);
+
+    });
+
+    updateSubtitle(
+        chapter.scenes[0]
+    );
+
+}
+
+
+/* ==========================================
+   AUDIO
+========================================== */
+
+function playScene(index){
+
+    currentScene=index;
+
+    const scene=
+        currentStory
+        .chapters[currentChapter]
+        .scenes[index];
+
+    updateSubtitle(scene);
+
+    playAudio();
+
+}
+
+
+function updateSubtitle(scene){
+
+    if(!scene)return;
+
+    document
+    .getElementById("subtitle")
+    .textContent=
+        scene.dialogue ||
+        scene.text.substring(0,150);
+
+}
+
+
+function playAudio(){
+
+    if(!("speechSynthesis" in window)){
+
+        alert(
+            "మీ browser Telugu Text-to-Speech support చేయడం లేదు."
+        );
+
+        return;
+    }
+
+    stopAudio();
+
+    const scene=
+        currentStory
+        .chapters[currentChapter]
+        .scenes[currentScene];
+
+    if(!scene)return;
+
+    const text=
+        scene.dialogue+" "+scene.text;
+
+    const utterance=
+        new SpeechSynthesisUtterance(text);
+
+    utterance.lang="te-IN";
+
+    utterance.rate=.85;
+
+    utterance.pitch=1;
+
+    speechSynthesis.speak(utterance);
+
+}
+
+
+function stopAudio(){
+
+    if("speechSynthesis" in window){
+
+        speechSynthesis.cancel();
+
+    }
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+renderFilters();
+render();
+renderLatest();
+
+
+/* ESC CLOSE */
+
+document.addEventListener("keydown",e=>{
+
+    if(e.key==="Escape"){
+        closeReader();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+```
